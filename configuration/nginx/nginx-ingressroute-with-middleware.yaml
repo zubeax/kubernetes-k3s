@@ -1,0 +1,18 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-ingressroute
+  namespace: nginx
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: PathPrefix(`/nginx`)
+    middlewares:
+    - name: nginx-add-trailing-slash
+    - name: nginx-stripprefix
+    services:
+    - name: nginx
+      port: 80
+

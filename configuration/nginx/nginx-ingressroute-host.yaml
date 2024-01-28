@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx
+  namespace: nginx
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`nginx.kippel.k3s`)
+    kind: Rule
+    services:
+    - name: nginx
+      namespace: nginx
+      port: 8080

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mariadb
+  name: mariadb-np
+  namespace: mariadb
+spec:
+  selector:
+    app: mariadb
+  type: NodePort
+  ports:
+  - port: 3306
+    targetPort: 3306
