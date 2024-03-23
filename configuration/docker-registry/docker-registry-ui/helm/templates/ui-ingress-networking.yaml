@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ui-ingress
+  labels:
+    app.kubernetes.io/component	: user-interface
+    {{- include "docker-registry-ui.labels" . | nindent 4 }}
+  {{- with .Values.ui.ingress.annotations }}
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    #kubernetes.io/ingress.class: "traefik"
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+  - host: ui-ingress-traefik.kippel.k3s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "docker-registry-ui.fullname" . }}-user-interface
+            port:
+              number: {{ .Values.ui.service.port }}
+

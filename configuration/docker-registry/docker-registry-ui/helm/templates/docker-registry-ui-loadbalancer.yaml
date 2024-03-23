@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: docker-registry-ui-lb
+  labels:
+    app.kubernetes.io/component	: user-interface
+    {{- include "docker-registry-ui.labels" . | nindent 4 }}
+  {{- with .Values.ui.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: LoadBalancer
+  ports:
+  - port: {{ .Values.ui.service.port }}
+    protocol: TCP
+    targetPort: {{ .Values.ui.service.port }}
+  selector:
+    "app.kubernetes.io/name": docker-registry-ui

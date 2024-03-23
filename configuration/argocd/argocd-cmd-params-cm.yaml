@@ -4,6 +4,9 @@ metadata:
   labels:
     app.kubernetes.io/name: argocd-cmd-params-cm
     app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/managed-by: "Helm"
+    meta.helm.sh/release-name: "argocd"
+    meta.helm.sh/release-namespace: "argocd"
   name: argocd-cmd-params-cm
   namespace: argocd
 data:

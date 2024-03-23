@@ -16,11 +16,13 @@ do
     docker push $REGISTRY/$bi:$tag  
     docker rmi  $hub/$bi:$tag  
 done<<EOT
-docker.io nginx    latest
-docker.io alpine   latest
-docker.io debian   latest
-docker.io registry 2
+docker.io arm64v8/maven amazoncorretto
 EOT
+# docker.io nginx    latest
+# docker.io alpine   latest
+# docker.io debian   latest
+# docker.io registry 2
+# EOT
 
 exit 0
 

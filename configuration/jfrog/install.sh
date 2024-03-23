@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "this file is obsolete. install with 'install-local.sh' from the local helm chart" && exit +1
+
 keyfile='./jfrog_keys.env'
 NS=artifactory
 

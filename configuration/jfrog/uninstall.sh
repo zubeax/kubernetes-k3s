@@ -10,7 +10,7 @@ pushd . 2>&1 > /dev/null
 
 cd ./helm/artifactory
 
-helm $dryrun --namespace $NS delete artifactory
+helm delete artifactory --namespace $NS
 
 popd 2>&1 > /dev/null
 

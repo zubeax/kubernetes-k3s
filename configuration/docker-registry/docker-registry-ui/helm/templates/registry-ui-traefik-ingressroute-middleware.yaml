@@ -1,0 +1,34 @@
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: ui-ingressroute
+  labels:
+    app.kubernetes.io/component	: user-interface
+    {{- include "docker-registry-ui.labels" . | nindent 4 }}
+  {{- with .Values.ui.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`ui-ingressroute.kippel.k3s`)
+      kind: Rule
+      services:
+        - name: docker-registry-ui-docker-registry-ui-user-interface
+          port: {{ .Values.ui.service.port }}
+      # No basic auth middleware is required since secrets are set up during registry creation
+      middlewares:
+        - name: ui-cors
+---
+kind: Middleware
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: ui-cors
+spec:
+  headers:
+    accessControlAllowOriginList:
+      - 'http://ui-ingressroute.kippel.k3s'
+    accessControlMaxAge: 100
+    addVaryHeader: true
