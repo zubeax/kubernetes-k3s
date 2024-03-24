@@ -14,7 +14,7 @@ annotations:
       url: https://github.com/Joxit/helm-charts
   artifacthub.io/prerelease: "false"
 apiVersion: v2
-appVersion: 2.5.2
+appVersion: 2.5.7
 description: The simplest and most complete UI for your private registry
 home: https://github.com/Joxit/docker-registry-ui
 keywords:

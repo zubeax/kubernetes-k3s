@@ -18,7 +18,6 @@ ui:
   proxy: false
   # The URL of your docker registry, may be a service (when proxy is on) or an external URL.
   dockerRegistryUrl: https://registry.k3s.kippel.de:5000
-  #dockerRegistryUrl: https://docker-registry-service.docker-registry.svc.cluster.local:5000
   # Override the pull URL
   pullUrl: null
   # Remove the menu that show the dialogs to add, remove and change the endpoint of your docker registry.
@@ -40,7 +39,7 @@ ui:
   # Allow delete of images
   deleteImages: true
   # Show content digest in docker tag list.
-  showContentDigest: false
+  showContentDigest: true
   # Set the default order for the taglist page, could be `num-asc;alpha-asc`, `num-desc;alpha-asc`, `num-asc;alpha-desc`, `num-desc;alpha-desc`, `alpha-asc;num-asc`, `alpha-asc;num-desc`, `alpha-desc;num-asc` or `alpha-desc;num-desc`.
   taglistOrder: alpha-asc;num-desc
   # Set the number of tags to display in one page.

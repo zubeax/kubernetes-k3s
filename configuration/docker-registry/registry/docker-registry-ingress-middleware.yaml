@@ -1,0 +1,40 @@
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: docker-registry
+  namespace: docker-registry
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`registry.kippel.k3s.de`)
+      kind: Rule
+      services:
+        - name: docker-registry-service
+          port: 5000
+          namespace: docker-registry
+      # No basic auth middleware is required since secrets are set up during registry creation
+      middlewares:
+        - name: docker-registry-cors
+          namespace: docker-registry
+  tls:
+    secretName: docker-registry-tls-cert
+---
+kind: Middleware
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: docker-registry-cors
+  namespace: docker-registry
+spec:
+  headers:
+    accessControlAllowMethods:
+      - GET
+      - OPTIONS
+      - PUT
+      - POST
+      - DELETE
+    accessControlAllowOriginList:
+      - http://registry-ui.kippel.k3s.de
+    accessControlAllowCredentials: true
+    accessControlMaxAge: 100
+    addVaryHeader: true
